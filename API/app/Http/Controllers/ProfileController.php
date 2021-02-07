@@ -38,12 +38,13 @@ class ProfileController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:6',
             'kelas' => 'required|string',
             'jurusan' => 'required|string',
             'alamat' => 'required|string',
-            'no_telepon' => 'required',
+            'no_telepon' => 'required|string',
+            'status' => 'required|string',
         ]);
 
         if($validator->fails()){
@@ -66,7 +67,7 @@ class ProfileController extends Controller
             'jurusan' => $request->jurusan,
             'alamat' => $request->alamat,
             'no_telepon' => $request->no_telepon,
-            'status' => 'siswa'
+            'status' => $request->status
         ]);
 
         return response()->json([

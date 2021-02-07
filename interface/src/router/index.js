@@ -6,6 +6,7 @@ import Landingpage from '../views/website/Landingpage.vue';
 import LMS from '../views/website/LMS.vue';
 import Login from '../views/website/Login.vue';
 import Register from '../views/website/Register.vue';
+import User from '../views/admin/user/User.vue';
 
 Vue.use(VueRouter)
 
@@ -29,8 +30,12 @@ const routes = [
     path:'/register',
     name:'register',
     component: Register
-  }
-  
+  },
+  {
+    path: '/admin/user',
+    name:'user',
+    component: User
+  },
 ]
 
 const router = new VueRouter({

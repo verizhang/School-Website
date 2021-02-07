@@ -52,7 +52,9 @@ export default {
                     };
 
                     localStorage.setItem('smk-kristen-immanuel-pontianak', JSON.stringify(authData));
-                    if(authData.status == 'siswa'){
+                    if(authData.status == 'admin'){
+                        window.location.href = "/admin";
+                    }else{
                         window.location.href = "/";
                     }
                 }
