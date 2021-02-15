@@ -1,6 +1,7 @@
 <template>
     <div class="container">
-        <div class="row shadow p-3">
+        <h1>User</h1>
+        <div class="row shadow rounded p-3">
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <div class="form-group">
                     <label>Name</label>
@@ -97,10 +98,9 @@ export default {
 
         getData(){
             let data ={
-
-                    head:['Id','Name','Email','Kelas','Jurusan','No Telepon','Alamat','Status'],
-                    rows:[]
-                }
+                head:['Id','Name','Email','Kelas','Jurusan','No Telepon','Alamat','Status'],
+                rows:[]
+            }
             axios.get(this.api + 'profile')
                 .then(function(response){
                     response.data.forEach(item => {
@@ -121,8 +121,8 @@ export default {
 
         edit(id){
             this.id = id;
-            var data = this.table.rows.filter(item => item.id == id);
-            this.formData = data[0];
+            let data = this.table.rows.filter(item => item.id == id);
+            this.formData = Object.assign({},data[0]);
             this.onEdit = true;
         },
 
@@ -142,8 +142,16 @@ export default {
             }
         },
 
-        del(id){
-            alert(id);
+        async del(id){
+            let request = await axios.delete(this.api+'profile/'+id,this.formData)
+            .then(function(response){
+                if(response.data.message == 'ok'){
+                    return true;
+                }
+            });
+            if(request){
+                this.getData();
+            }
         }
     }
 }

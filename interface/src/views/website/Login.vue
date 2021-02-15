@@ -53,7 +53,7 @@ export default {
 
                     localStorage.setItem('smk-kristen-immanuel-pontianak', JSON.stringify(authData));
                     if(authData.status == 'admin'){
-                        window.location.href = "/admin";
+                        window.location.href = "/admin/user";
                     }else{
                         window.location.href = "/";
                     }

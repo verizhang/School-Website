@@ -9,6 +9,7 @@ Vue.config.productionTip = false
 Vue.prototype.api = 'http://localhost:8000/api/'
 if(localStorage.getItem('smk-kristen-immanuel-pontianak') !== 'null'){
   Vue.prototype.statusUser = JSON.parse(localStorage.getItem('smk-kristen-immanuel-pontianak')).status
+  Vue.prototype.header = {'Authorization':JSON.parse(localStorage.getItem('smk-kristen-immanuel-pontianak')).token}
 }else{
   Vue.prototype.statusUser = 'null';
 }

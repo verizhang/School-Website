@@ -6,7 +6,10 @@ import Landingpage from '../views/website/Landingpage.vue';
 import LMS from '../views/website/LMS.vue';
 import Login from '../views/website/Login.vue';
 import Register from '../views/website/Register.vue';
-import User from '../views/admin/user/User.vue';
+
+//Admin Views
+import User from '../views/admin/User.vue';
+import News from '../views/admin/News.vue';
 
 Vue.use(VueRouter)
 
@@ -35,6 +38,11 @@ const routes = [
     path: '/admin/user',
     name:'user',
     component: User
+  },
+  {
+    path: '/admin/news',
+    name:'news',
+    component: News
   },
 ]
 

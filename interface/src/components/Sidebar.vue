@@ -9,8 +9,12 @@
         <router-link :to="{name:'user'}" class="text-decoration-none text-dark">
             <p>User</p>
         </router-link>
-        <p>Jurusan</p>
-        <p>News</p>
+        <router-link :to="{name:'news'}" class="text-decoration-none text-dark">
+            <p>Jurusan</p>
+        </router-link>
+        <router-link :to="{name:'news'}" class="text-decoration-none text-dark">
+            <p>News</p>
+        </router-link>
         <p>Prestasi</p>
         <p>Ekskul</p>
         <p>Karya</p>

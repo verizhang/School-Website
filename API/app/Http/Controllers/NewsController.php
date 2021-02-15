@@ -71,7 +71,6 @@ class NewsController extends Controller
         $file->move($path, $file->getClientOriginalName());
 
 
-
         $news = News::findOrFail($id);
         File::delete(public_path($news->gambar));
         $news->update([
