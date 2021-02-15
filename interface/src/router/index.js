@@ -10,6 +10,11 @@ import Register from '../views/website/Register.vue';
 //Admin Views
 import User from '../views/admin/User.vue';
 import News from '../views/admin/News.vue';
+import Jurusan from '../views/admin/Jurusan.vue';
+import Ekskul from '../views/admin/Ekskul.vue';
+import Karya from '../views/admin/Karya.vue';
+import Mapel from '../views/admin/Mapel.vue';
+import Materi from '../views/admin/Materi.vue';
 
 Vue.use(VueRouter)
 
@@ -43,6 +48,31 @@ const routes = [
     path: '/admin/news',
     name:'news',
     component: News
+  },
+  {
+    path: '/admin/jurusan',
+    name:'jurusan',
+    component: Jurusan
+  },
+  {
+    path: '/admin/ekskul',
+    name:'ekskul',
+    component: Ekskul
+  },
+  {
+    path: '/admin/karya',
+    name:'karya',
+    component: Karya
+  },
+  {
+    path: '/admin/mapel',
+    name:'mapel',
+    component: Mapel
+  },
+  {
+    path: '/admin/materi',
+    name:'materi',
+    component: Materi
   },
 ]
 

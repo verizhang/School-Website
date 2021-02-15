@@ -1,27 +1,21 @@
 <template>
     <div class="container">
-        <h1>News</h1>
+        <h1>Karya</h1>
         <div class="row shadow rounded p-3">
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <div class="form-group">
-                    <label>Judul</label>
-                    <input type="text" class="form-control" v-model="formData.judul">
+                    <label>Karya</label>
+                    <input type="text" class="form-control" v-model="formData.karya">
                 </div>
                 <div class="form-group">
-                    <label>Subjudul</label>
-                    <input type="text" class="form-control" v-model="formData.subjudul">
+                    <label>Anggota</label>
+                    <input type="text" class="form-control" v-model="formData.anggota">
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <div class="form-group">
-                    <label>Isi</label>
-                    <textarea class="form-control" v-model="formData.isi"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Kategori</label>
-                    <select v-model="formData.kategori" class="form-control">
-                        <option v-for="item in kategori" :value="item">{{item}}</option>
-                    </select>
+                    <label>Link</label>
+                    <textarea class="form-control" v-model="formData.link"></textarea>
                 </div>
                 <div class="form-group">
                     <label>Gambar</label>
@@ -48,10 +42,9 @@ export default {
             kategori:['berita','prestasi'],
             onEdit: false,
             formData:{
-                judul:'',
-                subjudul:'',
-                isi:'',
-                kategori:'',
+                karya:'',
+                anggota:'',
+                link:'',
                 gambar:''
             }
         }
@@ -80,7 +73,7 @@ export default {
             console.log(this.formData.gambar)
         },
         async postData(){
-            let request = await axios.post(this.api+'news',this.compactData("null"))
+            let request = await axios.post(this.api+'karya',this.compactData("null"))
             .then(function(response){
                 if(response.data.message == 'ok'){
                     return true;
@@ -95,18 +88,17 @@ export default {
 
         getData(){
             let data ={
-                head:['Id','Title','Subtitle','Isi','Kategori'],
+                head:['Id','Karya','Anggota','Link','Gambar'],
                 rows:[]
             }
-            axios.get(this.api + 'news')
+            axios.get(this.api + 'karya')
                 .then(function(response){
                     response.data.forEach(item => {
                         data.rows.push({
                             id:item.id,
-                            judul:item.judul,
-                            subjudul:item.subjudul,
-                            isi:item.isi,
-                            kategori:item.kategori,
+                            karya:item.karya,
+                            anggota:item.anggota,
+                            link:item.link,
                             gambar:`
                                 <div style="width:200px">
                                     <img src=${"http://localhost:8000/"+item.gambar}  class="img-fluid">
@@ -126,7 +118,7 @@ export default {
         },
 
         async update(){
-            let request = await axios.post(this.api+'news/'+this.id,this.compactData("PUT"))
+            let request = await axios.post(this.api+'karya/'+this.id,this.compactData("PUT"))
             .then(function(response){
                 if(response.data.message == 'ok'){
                     return true;
@@ -142,7 +134,7 @@ export default {
         },
 
         async del(id){
-            let request = await axios.delete(this.api+'news/'+id,this.formData)
+            let request = await axios.delete(this.api+'karya/'+id,this.formData)
             .then(function(response){
                 if(response.data.message == 'ok'){
                     return true;

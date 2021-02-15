@@ -1,30 +1,26 @@
 <template>
     <div class="container">
-        <h1>News</h1>
+        <h1>Materi</h1>
         <div class="row shadow rounded p-3">
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <div class="form-group">
-                    <label>Judul</label>
-                    <input type="text" class="form-control" v-model="formData.judul">
+                    <label>Mata Pelajaran</label>
+                    <select v-model="formData.mapel_id" class="form-control">
+                        <option v-for="item in mapel_id" :key="item.id" :value="item.id">{{item.mapel}}</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label>Subjudul</label>
-                    <input type="text" class="form-control" v-model="formData.subjudul">
+                    <label>Judul Materi</label>
+                    <input type="text" class="form-control" v-model="formData.judul">
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <div class="form-group">
-                    <label>Isi</label>
-                    <textarea class="form-control" v-model="formData.isi"></textarea>
+                    <label>Deskripsi</label>
+                    <textarea class="form-control" v-model="formData.deskripsi"></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Kategori</label>
-                    <select v-model="formData.kategori" class="form-control">
-                        <option v-for="item in kategori" :value="item">{{item}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Gambar</label>
+                    <label>File</label>
                     <input type="file" id="image" class="form-control" @change="file">
                 </div>
             </div>
@@ -45,14 +41,13 @@ export default {
         return {
             table:{},
             id:'',
-            kategori:['berita','prestasi'],
+            mapel_id:[],
             onEdit: false,
             formData:{
+                mapel_id:'',
                 judul:'',
-                subjudul:'',
-                isi:'',
-                kategori:'',
-                gambar:''
+                deskripsi:'',
+                file:''
             }
         }
     },
@@ -76,11 +71,10 @@ export default {
             return formData
         },
         file() {
-            this.formData.gambar = document.getElementById("image").files[0]
-            console.log(this.formData.gambar)
+            this.formData.file = document.getElementById("image").files[0]
         },
         async postData(){
-            let request = await axios.post(this.api+'news',this.compactData("null"))
+            let request = await axios.post(this.api+'materi',this.compactData("null"))
             .then(function(response){
                 if(response.data.message == 'ok'){
                     return true;
@@ -93,29 +87,34 @@ export default {
             
         },
 
-        getData(){
+        async getData(){
             let data ={
-                head:['Id','Title','Subtitle','Isi','Kategori'],
+                head:['Id','Mata Pelajaran','Judul','Deskripsi','File'],
                 rows:[]
             }
-            axios.get(this.api + 'news')
+            axios.get(this.api + 'materi')
                 .then(function(response){
+                    console.log(response.data)
                     response.data.forEach(item => {
-                        data.rows.push({
-                            id:item.id,
-                            judul:item.judul,
-                            subjudul:item.subjudul,
-                            isi:item.isi,
-                            kategori:item.kategori,
-                            gambar:`
-                                <div style="width:200px">
-                                    <img src=${"http://localhost:8000/"+item.gambar}  class="img-fluid">
-                                </div>
-                            `
+                        item.materi.forEach(materi =>{
+                            data.rows.push({
+                                id:materi.id,
+                                mapel_id:item.mapel,
+                                judul:materi.judul,
+                                deskripsi:materi.deskripsi,
+                                file:`<a class="btn btn-warning" href="http://localhost:8080/`+materi.file+`" download>Download</a>`
+                            })
                         })
+                        
                     });
             })
             this.table = data;
+
+            let mapel_id = await axios.get(this.api + 'mapel')
+                .then(function(response){
+                    return response.data;
+            })
+            this.mapel_id = mapel_id;
         },
 
         edit(id){
@@ -126,7 +125,7 @@ export default {
         },
 
         async update(){
-            let request = await axios.post(this.api+'news/'+this.id,this.compactData("PUT"))
+            let request = await axios.post(this.api+'materi/'+this.id,this.compactData("PUT"))
             .then(function(response){
                 if(response.data.message == 'ok'){
                     return true;
@@ -142,7 +141,7 @@ export default {
         },
 
         async del(id){
-            let request = await axios.delete(this.api+'news/'+id,this.formData)
+            let request = await axios.delete(this.api+'materi/'+id,this.formData)
             .then(function(response){
                 if(response.data.message == 'ok'){
                     return true;

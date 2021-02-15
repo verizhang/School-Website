@@ -42,7 +42,7 @@ class EkskulController extends Controller
 
         $ekskul = Ekskul::create([
             'ekskul'=>$request->ekskul,
-            'deskripsi'=>$request->ekskul,
+            'deskripsi'=>$request->deskripsi,
             'gambar'=>'ekskul/'.$file->getClientOriginalName()
         ]);
 
@@ -70,7 +70,7 @@ class EkskulController extends Controller
         File::delete(public_path($ekskul->gambar));
         $ekskul->update([
             'ekskul'=>$request->ekskul,
-            'deskripsi'=>$request->ekskul,
+            'deskripsi'=>$request->deskripsi,
             'gambar'=>'ekskul/'.$file->getClientOriginalName()
         ]);
 
